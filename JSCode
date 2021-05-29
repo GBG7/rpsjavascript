@@ -1,0 +1,1433 @@
+/*
+    RPS by Taha Sarfraz
+    
+    Notes; on the TOS page (scene 2), click start before clicking marking the box beside the "I agree to TOS". You will see me using IF statements well there.
+    
+    On the game itself, there is a scroll wheel function. Scroll down to see a "GUN" option. I also included a knife option.
+    
+    For the rate function, i tried my hardest making it mouseclick and having text show up below it and then saying what rate you chose. However, no matter how mcuh i tried, I couldn't get mouseClick = function(){}; to work even with boolean operators and memory. Pls dont take marks off for that
+    other notes i included are in the comments themselves i think
+*/
+var number = random (1, 4); //chooses random number between a 1  and 3
+var integer = round(number);  // rounds the number to whole number
+var rock = 1; //rock  is 1 so pc knows what to show
+var scissors = 2;  // scissor is 2 
+var paper = 3; // paper is 3
+var knife = 4; // knife is 4
+var buttonpressed = false; //to make sure only when button is press then true
+var cpuChoice = "NOTHING"; // original cpu choice
+var playerChoice = "NOTHING";  // original player choice
+var cpuScore = 0;  //origianl cpu score
+var cpuChoiceNumb = 0; //original cpu choice numb (it is nothing)
+var help = false; // help screen 
+var overRockRect = false; // to check if mouse is over rock box
+var overPaperRect = false;// to check if mouse is over paper box
+var overScissorsRect = false;// to check if mouse is over scissors box
+var overKnifeRect = false; // check if mouse over knife rect
+var help = false;
+
+var windowsFonts = ["sans-serif"]; // font i used 
+
+var fonts = windowsFonts; // font
+
+var fontColor = color(0, 0, 0); 
+var fontSize = 36;
+var scrollSpeed = 5;// speed at which the page goes up and down
+
+// scroll box variables
+var boxX = 350; //the scroll wheel box
+var boxW = 40; // scroll wheel box
+var boxH = 40; // scroll wheel box
+var upBoxY = 20; // green box 
+var downBoxY = 80; // red blox
+var upBoxColor = color(0, 100, 0, 100); // color of the up arrow box
+var upBoxHoverColor = color(0, 100, 0, 150); // color if you hover over up arrow box
+var upBoxPressedColor = color(0, 100, 0, 200); // color if you click up arrow box
+var downBoxColor = color(100, 0, 0, 100); // color of down arrow box
+var downBoxHoverColor = color(100, 0, 0, 150); //color if you hover over down arrow box
+var downBoxPressedColor = color(100, 0, 0, 200); // color if you press on arrow box
+var arrowColor = color(0, 0, 0, 200); // color of arrow
+
+var yOffset = 0; // allows to scroll up and down by changing Y
+var overUpArrow = false; //set as base for the down arrow wheel
+var overDownArrow = false; // set as base for down arrow
+var scene = 1; // scene = page if scene = 1 then weclome page, if scene =2 agreement page and scene 3 is game
+//end of scroll box vars
+
+
+
+
+
+var frontPage = function() { // function to call the welcome page 
+    background(0, 0, 0); 
+    fill(53, 35, 166);
+    rect(20,49,360,120); //blue rect 
+    var ecksdee = createFont("cursive"); // font
+    textFont(ecksdee);//font
+    textSize(20);
+    fill(255, 0, 0);
+     text("WELCOME TO ", 116,90); // top "WELCOME TO" text
+     
+     fill(168, 168, 168);//Colour of the blade
+beginShape();//Begin of the blade shape
+vertex(253,282);//point 1 
+vertex(158,266);//2 
+vertex(144,276);//point 3
+vertex(227,293);//point 4
+vertex(146,322);//point 5
+vertex(160,329);//point 6
+vertex(256,298);//point 7
+endShape();//End shape
+line(227,293,262,283);// in mid of two blades
+fill(168, 168, 168);//color of tip of blade
+quad(267,299,278,290,267,286,257,296);//end part of the top blade
+fill(224, 3, 3);//Handel colour
+quad(272,265,283,268,266,285,251,291);//Top plastic connector
+triangle(267,299,281,299,282,287);//Bottom plastic connector
+rotate(-42);
+ellipse(49,379,53,32);//Top outer handle
+fill(0, 0, 0);//Colour of explosion
+ellipse(49,378,35,16);//Top inner handle
+resetMatrix();//reset matrix
+fill(0, 0, 0);//Colour of the rock
+curve(266,255,284,260,283,244,397,111);//Piece of the rock seen through the handle
+line(284,260,283,244);//To add detail
+fill(237, 9, 9);//handle and plastic colour
+resetMatrix();//To reset the Matrix
+rotate(2);//to put the bottom handle in place
+ellipse(312,285,45,29);//Top outer handle
+fill(0, 0, 0);//Colour of the explosion
+ellipse(312,285,30,14);//Bottom inner handle
+resetMatrix();//to reset the matrix
+fill(255, 15, 15);//Handel and plastic colour
+noStroke();//TO make no stroke
+rotate(312);//To put the plastic piece in place
+rect(-21,380.49,8,8);//Plastic piece
+strokeWeight(1);
+stroke(0, 0, 0);
+resetMatrix();// reset  matrix
+fill(168, 168, 168);//colour of the Rear part of the bottom blade
+quad(251,286,253,296,264,295,267,282);//Rear part of the bottom blade
+
+fill(255,255,255);
+rotate(-30);
+rect(178,335,20,30); // the handle of gun
+rect(142,316,58,20); // the top part of gun
+noStroke();
+fill(153, 150, 150);
+rect(182,339,13,21); // the handle of gun
+stroke(0, 0, 0);
+fill(156, 156, 156);
+rect(142,316,58,10);// the top half of the top part of the gun that is grey
+rotate(30);
+strokeWeight(3);
+stroke(247, 247, 247);
+line(317,185,320,190); // line one on top end of gun left
+line(325,181,331,190); // line two on top end of gun left
+line(332,178,335,183); // line one on top end of gun left
+
+
+noStroke();
+stroke(0, 0, 0);
+strokeWeight(1);
+//scissor screw
+fill(168, 168, 168);//Colour of the screw
+ellipse(253,292,11,11);//Screw
+line(252,287,254,296.3);//line to add detail to screw
+
+
+
+
+//beginning of paper 
+fill(245, 243, 184);//Colour of the paper
+beginShape();
+vertex(79,320);// point 1 middle bottom
+vertex(201,312);//point 2 the right bottom edge
+vertex(195,289);//point 3 top right edge
+vertex(100,291);//point 4 top middle edge
+vertex(46,257);//point 5 top left edge
+vertex(32,293); //point 6 bottom left edge
+endShape();
+//end of paper
+fill(255, 0, 0);
+quad(77,312,117,316,134,301,87,279); // red rect below rock
+fill(242, 142, 36);
+triangle(94,300,82,314,102,306);// orang flame below the rock on left
+triangle(103,301,116,318,121,304);//orang flame below right on right 
+
+
+//rock start
+fill(112, 87, 88);//Colour of the rock
+beginShape();
+vertex(95,252); // point 1 highest point on top 
+vertex(126,261);//point 2 top right north east
+vertex(143,282); // point 3 most eastern point
+vertex(127,304); // point 4 south east point
+vertex(100,314); // point 5 most southern point
+vertex(78,290); // point 6 south west point
+vertex(72,267); // point 7 southern point (somewhat south north west)
+endShape();
+//rock end
+strokeWeight(3);
+stroke(255, 255,255 );
+line(85,202,85,223); // white line indicating it falling on left
+line(97,202,97,223); // white line middle
+line(110,202,110,223);//white line on right
+noStroke();
+
+
+      
+    fill(255,255,255);//white rect
+    rect(179,321,64,41); //white rect behind the start button
+    fill(4, 11, 117);  // blue start button
+    rect(180,320,60,39); // start button blue rect
+    fill(255, 255,0);//start world color
+    textSize(16);
+    text("START", 182, 346); // start words
+    
+    fill(255,255,255);//white rect
+    rect(78,321,64,41); //white rect behind the rate button
+    fill(4, 11, 117);  // blue rate button
+    rect(80,320,60,39); // start button blue rect
+    fill(255, 255,0);//start world color
+    textSize(16);
+    text("RATE", 87, 346); // start words
+    
+    
+    
+};
+
+var welcomeTitleRock = function(x,y,r,g,b,s){ // the word "ROCK" in the welcome page. I made this into another function so I could have it become small and then become big via animation
+   
+    textSize(s);
+    fill(r,g,b);
+    text("ROCK",x-10,y); // 27,148 // rock text
+  
+};
+
+var welcomeTitlePaper = function(x,y,r,g,b,s){ // the world "paper" in welcome page. same reason as above
+   
+    textSize(s);
+    fill(r,g,b);
+    textSize(s);
+    text("PAPER",x+80,y); // 128,148 // word paper
+};
+
+var welcomeTitleScissors = function(x,y,r,g,b,s){//word scissors in welcome page
+   
+    textSize(s);
+    fill(r,g,b);
+    textSize(s);
+    text("SCISSORS",x+180,y);   // 229,148 // scissors text in welcome page
+};
+
+var drawStart2 = function(){ // function to make the start button on the agreement page to blue. Originally it is grey as to show the user that it is unavaliable unless they agree to the TOS, this makes it blue and working
+    fill(0, 0, 158);
+     rect(135,359,141,32); // the box behind the words
+    fill(255,255, 0);
+    textSize(16);
+    text("START", 181, 380); //word start on button agreement pag
+    
+    
+};
+
+var agreementPage = function(){ // function to call page with TOS and agreement stuff
+    background(150, 170, 245); //background 
+    fill(82, 80, 82); //fill for the rect behind the TOS rect
+    rect(50,49,296,287); // the rect behind the TOS rect
+    noStroke();
+    fill(112, 112, 112); // the big light gray rect 
+    rect(50,50,289,281);// the big light gray rect
+    var f = createFont("cursive"); // font
+    textFont(f);//font
+    fill(255,255,255);
+    text("TERMS OF SERVICE",96,75); // TOS text on top  
+    fill(82, 80, 82);
+    rect(97,91,199,198);//darker grey rect where the tos is written in
+    fill(255, 255, 255); //text colors
+    textFont(f);// font
+    textSize(10);
+    text("These terms and conditions create a contract between you and RedGency EnterPooses (the “Agreement”). Please read the Agreement carefully. To confirm your understanding and acceptance of the Agreement; mark the box.                                  SECTION A; The creator may demand a grade provided by the marker and scorer to be above 125%, meaning the creator must get a 11/10 in commenting, AND 21/11 in code.    SECTION B; big chungoos" ,104,98,189,513); // tos text
+    fill(59, 57, 59); //checkmark box color
+    rect(98,296,30,30);//checkmark box/ 
+    fill(255, 255, 255);//"I agree" text 
+    textFont(f); //font
+    textSize(11);
+    text("I agree to the TERMS & SERVICES", 138,316); // "I agree" text
+    
+    
+    
+     
+    fill(138, 138, 140); //original start button. It is gray to indicate that the user cant "START" yet
+     rect(135,359,141,32); // original start button
+    fill(0, 0, 0); //text color
+    textSize(16);
+    text("START", 181, 380);  //start button text
+    
+    fill(255, 0, 0); //back button color
+    rect(21,359,51,31); //backbutton rect
+    fill(3, 3, 3);
+    text("BACK",26,379); // back button text
+    
+};
+
+var drawRock2 = function (rockX, rockY) { //function for drawing Rock Hand in the help screen. This one is modified for the help screen specifically
+    textSize(25);
+    fill(0,0,0);
+    stroke(0, 0, 0);
+    strokeWeight(3);
+    fill(158, 158, 158);//color of rock hand
+    noStroke();
+    rect(rockX-20,rockY+45,65,38);//background for the gray hand
+    stroke(0, 0, 0);
+    line(rockX-20,rockY+36,rockX-20,rockY+80);// line on the farthest left
+    fill(158, 158, 158); 
+    rect(rockX-20,rockY+24,15,30,60); // pinkie finger for hand far left
+    rect(rockX-5,rockY+22,15,32,60); // ring finger for hand far left
+    rect(rockX+10,rockY+20,15,34,60); // middle finger for hand far left
+    rect(rockX+25,rockY+20,15,32,60); // pointing finger for hand far left
+    arc(rockX+13,rockY+79,64,32,0,180); //bottom palm on hand
+    line(rockX+45,rockY+76,rockX+45,rockY+37);//line on far right thats the end of the thumb
+    line(rockX+45,rockY+36,rockX,rockY+35); //line that is the top of the thumb
+    line(rockX,rockY+35,rockX+6,rockY +47);// the slanted line on the edge of thumb
+    line(rockX+6,rockY+46,rockX+31,rockY+48);//bottom line of the thumb
+    arc(rockX+27,rockY+65,20,31,150,280);//the end othumb where the curve is
+    noStroke();
+   rect(rockX+7,rockY+36.6,37,8.8);// this rect's main job is to cover up the lines of the finger behind the thumbs. Since I used lines instead of rect, I need to hide the fingers behind so creafve an overlap, so this has no stroke and covers the fingers.
+   //stroke(255, 0, 0);
+    rect(rockX+30,rockY+38,12,30); // same as above ^^ 
+  
+   
+    
+    
+    fill(0, 0, 0); //reset color
+   stroke(0, 0, 0); 
+    strokeWeight(1); //reset stroke weigh
+   };
+var drawScissors2 = function (scissorsX, scissorsY) { // calls function to draw  scissors hand for helpscreen
+     fill(0,0,0);
+    fill(235, 235, 235); //useless 
+    stroke(0, 0, 0);
+    strokeWeight(3);
+    fill(158, 158, 158);//color of rock hand
+    noStroke();
+    rect(scissorsX-0,scissorsY+45,65,38);//background for the gray hand
+    stroke(0, 0, 0);
+    line(scissorsX-0,scissorsY+36,scissorsX-0,scissorsY+80);// line on the farthest left
+    fill(158, 158, 158); 
+    rect(scissorsX+0,scissorsY+26,15,30,60); // pinkie finger for hand far left
+    rect(scissorsX+15,scissorsY+23,15,32,60); // ring finger for hand far left
+    
+   // rect(scissorsX+0,scissorsY+24,15,30,60); // pinkie finger for hand far left
+    //rect(scissorsX+15,scissorsY+15,15,43,60); // ring finger for hand far left
+    rect(scissorsX+30,scissorsY+7,15,49,60); // middle finger for hand far left
+   
+    rect(scissorsX+45,scissorsY+10,15,40,60); // pointing finger for hand far left
+   
+    arc(scissorsX+36,scissorsY+79,70,32,0,180); //bottom palm on hand
+   
+    fill(158, 158, 158); 
+    noStroke();
+    //rect(scissorsX+2, scissorsY+30,12,30);//gray rect covering the pinkie finger's bottom
+   // rect(scissorsX+17, scissorsY+30,12.4,30);//gray rect covering the ring finger's bottom
+    rect(scissorsX+32, scissorsY+30,12.4,30);//gray rect covering the middle finger's bottom
+
+    rect(scissorsX+47, scissorsY+28,12.4,30);//gray rect covering the pointer finger's bottom
+    
+    stroke(0, 0, 0);
+    line(scissorsX+60,scissorsY+48,scissorsX+60,scissorsY+64);//line for the part of thumb that connects to the pointer finger
+    line(scissorsX+61,scissorsY+47,scissorsX+70,scissorsY+36);//line for the top of the sthumb that is slanted
+    line(scissorsX+70,scissorsY+36,scissorsX+70,scissorsY+77);// line at the far right 
+    
+    arc(scissorsX+63,scissorsY+70,20,31,150,280);//the end othumb where the curve is
+    
+    noStroke();
+    rect(scissorsX+62,scissorsY+47,7,35); // covers thumb making it gray
+     rect(scissorsX+67,scissorsY+41,2,7); // covers tip of thumb
+     rect(scissorsX+65,scissorsY+43,2,4); // covers tip of thumb
+    fill(0, 0, 0);
+   // rect(10,100,20,20); //paperx and paperY
+    strokeWeight(2); 
+    stroke(0, 0, 0);
+    
+
+    
+};
+var drawPaper2 = function (paperX, paperY) { //function to draw paper made for help screen
+    fill(0, 0, 0);
+    textSize(25);
+    
+   
+    fill(235, 235, 235); //this is useless
+    stroke(0, 0, 0);
+    strokeWeight(3);
+    fill(158, 158, 158);//color of rock hand
+    noStroke();
+    rect(paperX-0,paperY+45,65,38);//background for the gray hand
+    stroke(0, 0, 0);
+    line(paperX-0,paperY+36,paperX-0,paperY+80);// line on the farthest left
+    fill(158, 158, 158); 
+    rect(paperX+0,paperY+24,15,30,60); // pinkie finger for hand far left
+    rect(paperX+15,paperY+15,15,43,60); // ring finger for hand far left
+    rect(paperX+30,paperY+7,15,49,60); // middle finger for hand far left
+    rect(paperX+45,paperY+12,15,40,60); // pointing finger for hand far left
+    arc(paperX+36,paperY+79,70,32,0,180); //bottom palm on hand
+   
+    fill(158, 158, 158); 
+    noStroke();
+    rect(paperX+2, paperY+30,12,30);//gray rect covering the pinkie finger's bottom
+    rect(paperX+17, paperY+30,12.4,30);//gray rect covering the ring finger's bottom
+    rect(paperX+32, paperY+30,12.4,30);//gray rect covering the middle finger's bottom
+    rect(paperX+47, paperY+30,12.4,30);//gray rect covering the pointer finger's bottom
+    stroke(0, 0, 0);
+    line(paperX+60,paperY+48,paperX+60,paperY+64);//line for the part of thumb that connects to the pointer finger
+    line(paperX+61,paperY+47,paperX+70,paperY+36);//line for the top of the sthumb that is slanted
+    line(paperX+70,paperY+36,paperX+70,paperY+77);// line at the far right 
+    
+    arc(paperX+63,paperY+70,20,31,150,280);//the end othumb where the curve is
+    
+    noStroke();
+     rect(paperX+62,paperY+47,7,35);//the rect covering the thumb making it grey
+     rect(paperX+67,paperY+41,2,7); // rect covering the tip of thumb grey
+     rect(paperX+65,paperY+43,2,4); // rect covering tip of thumb grey
+    fill(0, 0, 0);
+   // rect(10,100,20,20); //paperx and paperY
+    strokeWeight(2); 
+    stroke(0, 0, 0);
+    
+
+};
+var drawKnife2 = function(knifeX, knifeY){ // made for knife in help scren
+    
+    fill(0, 0, 0);
+    textSize(25);
+    
+    fill(102, 71, 4);
+    rect(knifeX+32,knifeY+110,30,60); // knife handle
+    fill(213, 223, 242);
+    //rect(10,100,30,30);
+    strokeWeight(1);
+    beginShape(); 
+    vertex(knifeX+33,knifeY+109); // point one bottom left
+    vertex(knifeX+33,knifeY+21);//point two top left
+    vertex(knifeX+63,knifeY+41); //point 3 top right
+    vertex(knifeX+63,knifeY+109);//poinr 4 bottom right
+    endShape(); // 33, 213
+    strokeWeight(5);
+    rect(knifeX+19,knifeY+110,55,1); //black line between blade and handle knife 
+ 
+
+    //rect(10,100,30,30);
+};
+var drawGun2 = function (gunX, gunY) {//  function for gun 
+    fill(0, 0, 0);
+    textSize(25);
+    
+    fill(0, 0, 0);
+    quad(20,147 + yOffset,20,181  + yOffset ,53,157 + yOffset,53,143 + yOffset);// the back of the gun 
+    fill(56, 31, 2);
+    rect(53,143  + yOffset ,56, 14); // the barrel of  the rifle
+    fill(0,0,0);
+    quad(109,143.8  + yOffset ,110,157  + yOffset ,119,148 + yOffset, 119,144  + yOffset);// small triangular part of the gun 
+    rect(118,144.31  + yOffset ,37,4);// the scope / true barrel of rifle lol
+    strokeWeight(2); // haha gun go pew pew brrr 
+    line(59,158  + yOffset ,59,164  + yOffset );//   that trigger cage one pointing down
+    line(58,165  + yOffset ,41,165  + yOffset );//trigger cage point ing sideways
+    line(52,161   + yOffset ,44,145 + yOffset);//trigger 
+    
+    
+    
+    //rect(10,80,20,20); gunx&y
+};   
+
+
+
+var drawHelp = function () { //function for the help screen on the bottom STILL UNDER WORK kms
+    
+    textSize(12.0);
+    background(49, 204, 134); //green background for the help screen
+    
+
+    
+
+    //title
+    textSize(40);
+    text("HELP",150,50);//Help text on the game
+    textSize(15);
+    text("ROCK, PAPER, SCISSORS; At the same time, two players display one of three symbols: a rock, paper, or scissors. ",40,70,330,185);//text for help
+    
+  
+    text("beats", 112,174); // 1st beats
+    
+    
+     text("beats", 112,271); // 2nd beats
+     
+     
+     text("beats", 115,362); // 3rd beats
+    
+    text("beats", 310,269); // 4rd beats
+
+    
+    
+    
+    //back button
+    fill(245, 242, 245);
+    rect(299,374,50,25); // the white button
+    fill(0,0,0);
+    text("BACK",305.2,379,50,25); //  text back on help scren
+
+    
+    
+    
+ 
+    //Back Button
+    /*fill(0, 0, 0);
+    rect(40,330,50,25);
+    fill(0, 0, 0);
+    text("BACK",42.7,335,50,25);*/
+
+    
+    }; 
+    
+    
+    
+fill(0, 0, 0);
+// NOTE ; DRAWROCK , DRAWPAPER, DRAWSCISSORS are mine i made them after a day of perfecting them 
+var drawRock = function (rockX, rockY) { //function for drawing Rock Hand
+    textSize(25);
+    fill(0,0,0);
+    // rect(60,110,20,20); rockX and rockY 
+    text("Rock",rockX-19,rockY-10); //rock text that shows up above rock
+    stroke(0, 0, 0);
+    strokeWeight(3);
+    fill(158, 158, 158);//color of rock hand
+    noStroke();
+    rect(rockX-20,rockY+45,65,38);//background for the gray hand
+    stroke(0, 0, 0);
+    line(rockX-20,rockY+36,rockX-20,rockY+80);// line on the farthest left
+    fill(158, 158, 158); 
+    rect(rockX-20,rockY+24,15,30,60); // pinkie finger for hand far left
+    rect(rockX-5,rockY+22,15,32,60); // ring finger for hand far left
+    rect(rockX+10,rockY+20,15,34,60); // middle finger for hand far left
+    rect(rockX+25,rockY+20,15,32,60); // pointing finger for hand far left
+    arc(rockX+13,rockY+79,64,32,0,180); //bottom palm on hand
+    line(rockX+45,rockY+76,rockX+45,rockY+37);//line on far right thats the end of the thumb
+    line(rockX+45,rockY+36,rockX,rockY+35); //line that is the top of the thumb
+    line(rockX,rockY+35,rockX+6,rockY +47);// the slanted line on the edge of thumb
+    line(rockX+6,rockY+46,rockX+31,rockY+48);//bottom line of the thumb
+    arc(rockX+27,rockY+65,20,31,150,280);//the end othumb where the curve is
+    noStroke();
+   rect(rockX+7,rockY+36.6,37,8.8);// this rect's main job is to cover up the lines of the finger behind the thumbs. Since I used lines instead of rect, I need to hide the fingers behind so creafve an overlap, so this has no stroke and covers the fingers.
+   //stroke(255, 0, 0);
+    rect(rockX+30,rockY+38,12,30); // same as above ^^ 
+  
+   
+    
+    
+    fill(0, 0, 0); //reset color
+   stroke(0, 0, 0); 
+    strokeWeight(1); //reset stroke weigh
+   };
+
+var drawPaper = function (paperX, paperY) { //function to draw paper
+    fill(0, 0, 0);
+    textSize(25);
+    
+    text("Paper", paperX, paperY); // the text "PAPER"
+    fill(235, 235, 235); //this is useless
+    stroke(0, 0, 0);
+    strokeWeight(3);
+    fill(158, 158, 158);//color of rock hand
+    noStroke();
+    rect(paperX-0,paperY+45,65,38);//background for the gray hand
+    stroke(0, 0, 0);
+    line(paperX-0,paperY+36,paperX-0,paperY+80);// line on the farthest left
+    fill(158, 158, 158); 
+    rect(paperX+0,paperY+24,15,30,60); // pinkie finger for hand far left
+    rect(paperX+15,paperY+15,15,43,60); // ring finger for hand far left
+    rect(paperX+30,paperY+7,15,49,60); // middle finger for hand far left
+    rect(paperX+45,paperY+12,15,40,60); // pointing finger for hand far left
+    arc(paperX+36,paperY+79,70,32,0,180); //bottom palm on hand
+   
+    fill(158, 158, 158); 
+    noStroke();
+    rect(paperX+2, paperY+30,12,30);//gray rect covering the pinkie finger's bottom
+    rect(paperX+17, paperY+30,12.4,30);//gray rect covering the ring finger's bottom
+    rect(paperX+32, paperY+30,12.4,30);//gray rect covering the middle finger's bottom
+    rect(paperX+47, paperY+30,12.4,30);//gray rect covering the pointer finger's bottom
+    stroke(0, 0, 0);
+    line(paperX+60,paperY+48,paperX+60,paperY+64);//line for the part of thumb that connects to the pointer finger
+    line(paperX+61,paperY+47,paperX+70,paperY+36);//line for the top of the sthumb that is slanted
+    line(paperX+70,paperY+36,paperX+70,paperY+77);// line at the far right 
+    
+    arc(paperX+63,paperY+70,20,31,150,280);//the end othumb where the curve is
+    
+    noStroke();
+     rect(paperX+62,paperY+47,7,35);//the rect covering the thumb making it grey
+     rect(paperX+67,paperY+41,2,7); // rect covering the tip of thumb grey
+     rect(paperX+65,paperY+43,2,4); // rect covering tip of thumb grey
+    fill(0, 0, 0);
+   // rect(10,100,20,20); //paperx and paperY
+    strokeWeight(2); 
+    stroke(0, 0, 0);
+    
+
+};
+
+ 
+
+var drawScissors = function (scissorsX, scissorsY) { // calls function to draw scissors hand
+     fill(0,0,0);
+    textSize(25);
+    text("Scissors", scissorsX, scissorsY);//text "scissors"
+    fill(235, 235, 235); //useless 
+    stroke(0, 0, 0);
+    strokeWeight(3);
+    fill(158, 158, 158);//color of rock hand
+    noStroke();
+    rect(scissorsX-0,scissorsY+45,65,38);//background for the gray hand
+    stroke(0, 0, 0);
+    line(scissorsX-0,scissorsY+36,scissorsX-0,scissorsY+80);// line on the farthest left
+    fill(158, 158, 158); 
+    rect(scissorsX+0,scissorsY+26,15,30,60); // pinkie finger for hand far left
+    rect(scissorsX+15,scissorsY+23,15,32,60); // ring finger for hand far left
+    
+   // rect(scissorsX+0,scissorsY+24,15,30,60); // pinkie finger for hand far left
+    //rect(scissorsX+15,scissorsY+15,15,43,60); // ring finger for hand far left
+    rect(scissorsX+30,scissorsY+7,15,49,60); // middle finger for hand far left
+   
+    rect(scissorsX+45,scissorsY+10,15,40,60); // pointing finger for hand far left
+   
+    arc(scissorsX+36,scissorsY+79,70,32,0,180); //bottom palm on hand
+   
+    fill(158, 158, 158); 
+    noStroke();
+    //rect(scissorsX+2, scissorsY+30,12,30);//gray rect covering the pinkie finger's bottom
+   // rect(scissorsX+17, scissorsY+30,12.4,30);//gray rect covering the ring finger's bottom
+    rect(scissorsX+32, scissorsY+30,12.4,30);//gray rect covering the middle finger's bottom
+
+    rect(scissorsX+47, scissorsY+28,12.4,30);//gray rect covering the pointer finger's bottom
+    
+    stroke(0, 0, 0);
+    line(scissorsX+60,scissorsY+48,scissorsX+60,scissorsY+64);//line for the part of thumb that connects to the pointer finger
+    line(scissorsX+61,scissorsY+47,scissorsX+70,scissorsY+36);//line for the top of the sthumb that is slanted
+    line(scissorsX+70,scissorsY+36,scissorsX+70,scissorsY+77);// line at the far right 
+    
+    arc(scissorsX+63,scissorsY+70,20,31,150,280);//the end othumb where the curve is
+    
+    noStroke();
+    rect(scissorsX+62,scissorsY+47,7,35); // covers thumb making it gray
+     rect(scissorsX+67,scissorsY+41,2,7); // covers tip of thumb
+     rect(scissorsX+65,scissorsY+43,2,4); // covers tip of thumb
+    fill(0, 0, 0);
+   // rect(10,100,20,20); //paperx and paperY
+    strokeWeight(2); 
+    stroke(0, 0, 0);
+    
+
+    
+};
+
+var drawGun = function (gunX, gunY) {//  function for gun 
+    fill(0, 0, 0);
+    textSize(25);
+    text("GUN",gunX,gunY);//text "scissors"
+    fill(0, 0, 0);
+    quad(20,147 + yOffset,20,181  + yOffset ,53,157 + yOffset,53,143 + yOffset);// the back of the gun 
+    fill(56, 31, 2);
+    rect(53,143  + yOffset ,56, 14); // the barrel of  the rifle
+    fill(0,0,0);
+    quad(109,143.8  + yOffset ,110,157  + yOffset ,119,148 + yOffset, 119,144  + yOffset);// small triangular part of the gun 
+    rect(118,144.31  + yOffset ,37,4);// the scope / true barrel of rifle lol
+    strokeWeight(2); // haha gun go pew pew brrr 
+    line(59,158  + yOffset ,59,164  + yOffset );//   that trigger cage one pointing down
+    line(58,165  + yOffset ,41,165  + yOffset );//trigger cage point ing sideways
+    line(52,161   + yOffset ,44,145 + yOffset);//trigger 
+    
+    
+    
+    //rect(10,80,20,20); gunx&y
+};   
+
+var drawCheckmark = function(checkX, checkY){ // function that draws checkmark in agreement page 
+    fill(255,255,255);
+    rotate(30); // rotates it 30 degrees
+      rect(239,224,17,5); // small rect of the checkmark the small one 
+      rotate(-30); //unrotate
+      rotate(30); 
+      rect(251,194,5,35);//big part of the checkmark big part at the back
+        rotate(-30);    
+
+};
+var drawKnife = function(knifeX, knifeY){
+    
+    fill(0, 0, 0);
+    textSize(25);
+    text("Knife",knifeX,knifeY);//text "scissors"
+    fill(102, 71, 4);
+    rect(knifeX+32,knifeY+110,30,60); // knife handle
+    fill(213, 223, 242);
+    //rect(10,100,30,30);
+    strokeWeight(1);
+    beginShape(); 
+    vertex(knifeX+33,knifeY+109); // point one bottom left
+    vertex(knifeX+33,knifeY+21);//point two top left
+    vertex(knifeX+63,knifeY+41); //point 3 top right
+    vertex(knifeX+63,knifeY+109);//poinr 4 bottom right
+    endShape(); // 33, 213
+    strokeWeight(5);
+    rect(knifeX+19,knifeY+110,55,1); //black line between blade and handle knife 
+ 
+
+    //rect(10,100,30,30);
+};
+
+
+var canIncrease = true; // for score counter
+var playerScore=0; // for player score
+var computerScore=0; // for CPU score
+var tieScore=0;     // tie score useless
+var drawWinner = function (playerChoice, cpuChoice) {  // calls the winner and draws ot
+      
+        var winnerResult = "TIE";  //original winner result
+        /*var rock = 1; //rock  is 1 so pc knows what to show
+var scissors = 2;  // scissor is 2 
+var paper = 3; // paper is 3*/
+        
+        if (playerChoice === "ROCK") {   // if player chooses rock (1)
+            if (cpuChoice === "PAPER"){ // if cpu chooses paper (3)
+                winnerResult = "CPU WINS";  // cpu win text
+                
+            }
+            
+    
+        
+        }
+    if (playerChoice === "PAPER") { // if  player chooses paper
+        if (cpuChoice === "SCISSORS") { // if cpu chooses scissor (2)
+            winnerResult = "CPU WINS"; // cpu win text
+            
+        }
+    }
+    if (playerChoice === "SCISSORS") { //if player chooses scissors
+        if (cpuChoice === "ROCK") {// if cpu chooses rock (1)
+            winnerResult = "CPU WINS"; // cpu win
+        }
+    }
+        
+    if (playerChoice === "PAPER") { // if player choose paper
+        if (cpuChoice === "ROCK") { //cpu choose rock (1)
+            winnerResult = "YOU WIN"; // player win text
+            
+        }
+    }
+        
+    if (playerChoice === "ROCK") {  // if player schoose rock
+        if (cpuChoice === "SCISSORS") { // if cpu scissor (2)
+            winnerResult = "YOU WIN";//you win
+        }
+        }
+    
+    if (playerChoice === "SCISSORS") { // if player chose scissor
+        if (cpuChoice === "PAPER") { // cpu chose paper (3)
+            winnerResult = "YOU WIN"; //yeah
+            
+            }
+        
+        }
+        
+        //the gun code essentially makes the gun op by making it the strongest defeating all cpu choices
+        
+     if (playerChoice === "CVA Cascade Hunting Rifle") { 
+        if (cpuChoice === "PAPER"){
+            winnerResult = "YOU WIN";   
+        }    
+     } 
+     
+         if (playerChoice === "CVA Cascade Hunting Rifle") {
+        if (cpuChoice === "ROCK"){
+            winnerResult = "YOU WIN";   
+        }    
+     }  
+     
+     if (playerChoice === "CVA Cascade Hunting Rifle") {
+        if (cpuChoice === "SCISSORS"){
+            winnerResult = "YOU WIN";   
+        }    
+     }  
+     if (playerChoice === "CVA Cascade Hunting Rifle") {
+        if (cpuChoice === "KNIFE"){
+            winnerResult = "YOU WIN";   
+        }    
+     }  
+     
+     if (playerChoice === "KNIFE"){
+         if (cpuChoice === "SCISSORS"){
+             winnerResult = "TIE";
+         }
+     }
+     
+     if (playerChoice === "KNIFE"){
+         if (cpuChoice === "ROCK"){
+             winnerResult = "CPU WINS";
+         }
+     }
+     
+      if (playerChoice === "KNIFE"){
+         if (cpuChoice === "PAPER"){
+             winnerResult = "YOU WIN";
+         }
+     }
+     
+     
+     
+     if (winnerResult === "CPU WINS") { // if cpu wins text
+         if (canIncrease){ // checks if score can increase
+         playSound(getSound("rpg/metal-clink")); //plays a sound
+            computerScore+=1; // pc score goes up
+            canIncrease=false;  // end growth
+         }
+     }
+            
+      if (winnerResult === "YOU WIN") { // if you win
+         if (canIncrease){ // checks if score increase
+            playSound(getSound("retro/coin")); //plays a sound
+            playerScore+=1;// player score goes up
+            canIncrease=false; 
+         }
+     }
+            
+     
+            
+            
+
+        
+    fill(82, 0, 245);
+    // println(winnerResult);
+    textSize(20);
+    text(winnerResult, 141, 106 + yOffset); // winner result text
+    
+        
+    }; 
+   //the function drawtext is useless i added this for debugging the scroll wheel. I can't remove this because if I do so, it will break the code somehow. please dont take marks off
+var drawText = function(font, x, y) {// draws text
+    var f = createFont(font); //font
+    textFont(f, fontSize);//font
+    textSize(2);
+    text("hi", x, y);//text 
+    
+    };
+
+
+var drawScore = function(x,y,r,g,b) { //draws the score in the yellow box on top for player and cpu
+    fill(24, 77, 222); //color of text
+    textSize(20);
+    text("Score; ",15,63 + yOffset); // the word score for player box
+    text("Score; ",279,63+ yOffset); // the word score for CPU box
+    fill(0, 0, 0);
+    text(playerScore, 85, 63 + yOffset); // the player score
+    text(computerScore, 349,63 + yOffset); //cpu score
+    
+    
+  
+    
+};
+
+var drawStar1 = function(){
+    fill(4, 11, 117);  // blue rate button
+    rect(24,79,350,154);
+    image(getImage("cute/Star"), 32, 85,61,105);
+};
+var drawStar2 = function(){
+     fill(4, 11, 117);  // blue rate button
+    rect(24,79,350,154);
+    image(getImage("cute/Star"), 32, 85,61,105);
+    image(getImage("cute/Star"), 99, 85,61,105);
+};
+
+var drawStar3 = function(){
+   fill(4, 11, 117);  // blue rate button
+    rect(24,79,350,154);
+    image(getImage("cute/Star"), 32, 85,61,105);
+    image(getImage("cute/Star"), 99, 85,61,105);
+    image(getImage("cute/Star"), 166, 85,61,105);
+
+};
+
+var drawStar4 = function(){
+fill(4, 11, 117);  // blue rate button
+    rect(24,79,350,154);
+    image(getImage("cute/Star"), 32, 85,61,105);
+    image(getImage("cute/Star"), 99, 85,61,105);
+    image(getImage("cute/Star"), 166, 85,61,105);
+    image(getImage("cute/Star"), 231, 85,61,105);
+
+};
+
+var drawStar5 = function(){
+    fill(4, 11, 117);  // blue rate button
+    rect(24,79,350,154);
+    image(getImage("cute/Star"), 32, 85,61,105);
+    image(getImage("cute/Star"), 99, 85,61,105);
+    image(getImage("cute/Star"), 166, 85,61,105);
+    image(getImage("cute/Star"), 231, 85,61,105);
+    image(getImage("cute/Star"), 300, 85,61,105);
+};
+
+var ratePage = function(){
+    background(0, 0, 0); 
+    fill(255, 0, 0);
+    textSize(28);
+    text("RATE US", 130, 50); // rate us text on rate page
+    fill(4, 11, 117);  // blue rate button
+    rect(24,79,350,154); // blue rect 
+    image(getImage("cute/Star"), 32, 85,61,105); //star one from left
+    image(getImage("cute/Star"), 99, 85,61,105); // star two from left
+    image(getImage("cute/Star"), 166, 85,61,105); // star 3 from left
+    image(getImage("cute/Star"), 231, 85,61,105); // star 4
+    image(getImage("cute/Star"), 300, 85,61,105);// star 5
+    
+    textSize(15);
+    fill(255, 0, 0); //back button color
+    rect(21,359,51,31); //backbutton rect
+    fill(3, 3, 3);
+    text("BACK",26,379); // back button text
+};
+
+
+
+
+
+
+var iAgree = false;  // for checking if you agreed to TOS on agreement page
+var warning1 = false; // to check if you agreed to TOS before starting game
+var welcomeSize = 0; // textsize of the rock  text on welcomepage
+var welcomeSize2 = -5; // textsize of the paper text on welcomepage
+var welcomeSize3 = -10;// textsize of the scissors text on welcomepage
+var stopIncrease = false; // stop increase of the text on welcomepage
+    
+    draw = function() { 
+     background(255, 255, 255); // white background for game
+    
+     
+      if (scene === 4){ // scene 4 is rate pag
+
+                ratePage(); // make the rating page
+            
+            }
+            
+            
+            //iAgree
+            
+            if (scene === 4 && mouseX >20 && mouseX<70 && mouseY >= 358 && mouseY <= 390 && mouseIsPressed){     // if scene is page rating and you hit the red back button
+                     playSound(getSound("retro/hit1")); // sound
+                    scene = 1; // go back to front page
+                }
+ 
+           if ( mouseX >43 && mouseX<81 && mouseY >= 121 && mouseY <= 167 ){ // if mouse is over star 1 
+                    fill(255, 0, 0);
+                        rect(200,265,30,30);
+                        drawStar1(); // draw 1 star
+                      
+            } 
+
+    
+        
+         
+            if (scene === 4 && mouseX >106 && mouseX<152 && mouseY >= 121 && mouseY <= 167 && mouseIsPressed){ // if mouse is over star 2
+                        drawStar2();// draw 2 star
+            } 
+            
+             if (scene === 4 && mouseX >175 && mouseX<219 && mouseY >= 121 && mouseY <= 167 && mouseIsPressed){// if mouse is over star 3
+                        drawStar3(); // draw 3 star
+            } 
+      
+      if (scene === 4 && mouseX >242 && mouseX<285 && mouseY >= 121 && mouseY <= 167 && mouseIsPressed){ // if mouse over 4 star
+                        drawStar4(); //4 star
+            } 
+            if (scene === 4 && mouseX >312 && mouseX<351 && mouseY >= 121 && mouseY <= 167 && mouseIsPressed){ // if mouse on 5 star
+                        drawStar5(); //  5 star
+            } 
+                
+            
+
+                    
+    
+     if (scene === 1) { //scene 1 is frontpage the welcome page
+    
+        frontPage(); // 200  230 200 230 // draw welcome page
+      
+        welcomeTitleRock(44,151,255,0,0,welcomeSize); //draws rock text
+        if(welcomeSize <=25) { // if welcome size is = or below 25
+            welcomeSize++;// grow by 1
+            
+        }
+        welcomeTitlePaper(44,151,255,0,0,welcomeSize2); // welcome paper draw
+        if(welcomeSize2 <=25) { // if welcome size is = or below 25 
+            welcomeSize2++; // +1
+            
+        }
+        
+        welcomeTitleScissors(44,151,255,0,0,welcomeSize3); //welcome scissor draw
+         if(welcomeSize3 <=25) {//// if welcome size is = or below 25
+            welcomeSize3++;// +1
+            
+        }
+        
+    
+         if (( mouseIsPressed && mouseX >80 && mouseX<140 && mouseY >= 321 && mouseY <= 360 && scene === 1)){ playSound(getSound("retro/whistle2"));
+                scene = 4;
+                
+                   
+         }  
+         
+        
+     }
+          
+        
+     /*   mouseClicked = function(){ // mouse click
+            if ((mouseX >80 && mouseX<140 && mouseY >= 321 && mouseY <= 360 && scene === 1)){
+                playSound(getSound("retro/whistle2"));
+                scene = 4;
+                    if (scene === 4){
+                        ratePage();
+                    }
+                
+            }
+        };
+        */
+        mouseClicked=function() { //mouse click
+        if ((mouseX >180 && mouseX<240 && mouseY >= 321 && mouseY <= 360))         {
+            
+    playSound(getSound("retro/whistle2"));
+    scene =2; 
+    
+        } //if mouseclicked on button start on frontpage go on to scene 2
+     };
+        
+        
+     
+     
+     if (scene === 2) { // if scene is 2 (agreementpage)
+       
+        agreementPage();  //draw agreementpage
+   
+      
+        
+        if (iAgree === true){// if i agree is trye
+                drawCheckmark(); // draw checkmark on tos box
+                 drawStart2(104,318);  //make start button blue on agreementpage
+                 warning1 = false; // allow us to go to other game
+                 
+                }
+                
+            if (warning1=== true){     // if warning 1 is true 
+            
+               fill(250, 0, 8);
+               text("agree to the TOS or return back ", 74, 355); //text
+            }    
+            mouseClicked = function(){
+                 if ((mouseX > 135 && mouseX <275 && mouseY > 355 && mouseY <390) && iAgree === false ){ // if your mouse is over the start box but you didnt agree to TOS
+                playSound(getSound("rpg/hit-thud")); //plays a sound
+                warning1 = true; // warning will show up and you wont be sent to game
+                
+              }
+             
+               if(mouseX > 100 && mouseX <128 && mouseY > 300 && mouseY <323){ // if mouse is over the checkmark box and clocked
+               //playSound(getSound("retro/whistle2"));
+                iAgree = true; // i agree is true so now you can go ahead to game
+                 drawCheckmark(104,318); // checkmark is drawn
+                 
+                 
+            }    
+             if ((mouseX > 135 && mouseX <275 && mouseY > 355 && mouseY <390) && iAgree === true) {// if you have agreed to the TOS and the mouse is over start
+             playSound(getSound("retro/whistle2")); //plays a sound
+               scene = 3;   //go to game
+              }
+              
+           if (mouseX > 21 && mouseX <72 && mouseY > 360 && mouseY <390){ // if mouse is over the back button
+           playSound(getSound("retro/hit1")); //plays a sound
+            scene = 1; // go back to frontpage
+           }
+              
+              
+             
+              
+          }; 
+            
+           
+     }     
+     
+     
+          
+        
+     
+     if (scene === 3) { // if scene is game scene
+     
+     //at this point the game is written the code isnt professional because I wrote the code for game before writing the code for screens and this is the best way i figured out to incorporate the other pages after writing code for game
+       stroke(0, 0, 0);
+     strokeWeight(2);
+     noFill();
+     strokeWeight(1);
+     var f = createFont("Tahoma"); // font
+     textFont(f);//font
+
+
+    rect(2, 292+ yOffset, 125, 60 ); //box for rock button
+    textSize(30); 
+    fill(0, 0, 0);
+    text("Rock", 29, 330 + yOffset);//rock text
+    noFill();
+    rect(138, 292 + yOffset, 125, 60); //box around paper
+    fill(0, 0, 0);
+    text("Paper", 164, 330 + yOffset);//paper text
+    noFill();
+    rect(273, 292+ yOffset, 125, 60); //box around scissor text
+    fill(0, 0, 0);
+    text("Scissors", 282, 330+ yOffset);//scissors text
+    noFill();
+    rect(150,358+ yOffset,100,35,100); // help box
+    fill(0, 0, 0);
+    textSize(14);
+    noFill();
+    textSize(20);
+    rect(2, 409 + yOffset,125,60);//secret box
+    textSize(14);
+    text("UNKNOWN", 26,416 + yOffset, 90,69); // not so secret text for secret text box
+    text("oh hmm whats this? hover over it to find out what it is!",131,416+ yOffset,244,136  );
+    noFill();
+    rect(138, 219 + yOffset, 125, 60); //box around paper
+    fill(0, 0, 0);
+    textSize(30);
+    text("Knife", 164, 260 + yOffset);//paper text
+    noFill();
+    
+    
+    //NOTE FOR MR C; mr the code below showcasing the rects for rock paper scissor options getting dark when hovered over and clicked is inefficient coding since I could have used functions to make it cleaner. HOWEVER, when i tried it, it didnt work. no matter how much i fiddled with the function. I couldnt get it to work with function so out of desperation, i did it like this. Please don't take away marks for this i tried my hardest to make it work and it didnt work so i just did it this way i tried please
+    
+    if (mouseX>= 2 && mouseX<=127  && mouseY>=290 + yOffset  && mouseY<=360 + yOffset ){ // if mouse is over the rock box
+        overRockRect= true; 
+        if (overRockRect === true) { // if mouse is over rock box
+            fill(255, 255, 255);
+            rect(2, 292+ yOffset, 125, 60 ); // draw a new rock rectange
+            noFill();
+            fill(148, 143, 143);// make the box grey
+            rect(2, 292+ yOffset, 125, 60 ); //box for rock button
+            textSize(30); 
+            fill(0, 0, 0);
+            text("Rock", 29, 330 + yOffset);//rock text
+                if (mouseIsPressed) { // if mouse is pressed 
+                    fill(255, 255, 255);
+            rect(2, 292+ yOffset, 125, 60 ); // draw a new rock rect
+            noFill();  
+            fill(82, 82, 82);//make box dark dark grey
+            rect(2, 292+ yOffset, 125, 60 ); //box for rock button
+            textSize(30); 
+            fill(0, 0, 0);
+            text("Rock", 29, 330 + yOffset);//rock text
+                }    
+    
+        }
+    }    
+    
+    if (mouseX>= 138 && mouseX<=264  && mouseY>=292  + yOffset && mouseY<=350 + yOffset){ // paper hover and click
+        overPaperRect = true;
+        if (overPaperRect === true){ // if overpaper rect is true
+            fill(153, 153, 153);// make the box darker gray
+           rect(138, 292 + yOffset, 125, 60); // draw new paper rectt
+         fill(0, 0, 0);
+         textSize(30);
+         text("Paper", 164, 330 + yOffset);//paper text 
+         noFill();
+            if (mouseIsPressed){ // if mouse pres
+                fill(82, 82, 82); // make box grey
+                 rect(138, 292 + yOffset, 125, 60); // make box for paper rect
+                 fill(0, 0, 0);
+                 textSize(30);
+                 text("Paper", 164, 330 + yOffset);//paper text
+                 noFill();    
+            }    
+   
+        }    
+    }
+    
+    if (mouseX>= 273 && mouseX<=398 && mouseY>=292 + yOffset && mouseY<=350  + yOffset ){//if mouse over scissor box
+        overScissorsRect = true; 
+        if (overScissorsRect === true){
+            fill(148, 148, 148);//make box gray
+            rect(273, 292+ yOffset, 125, 60); //draw new scissor box
+            fill(0, 0,0);
+            textSize(30);
+            text("Scissors", 282, 330+ yOffset);//scissors text
+            noFill();
+            rect(150,358+ yOffset,100,35,100); // scissors box
+                if (mouseIsPressed){
+                    fill(82, 82, 82); //make scissors box dark gray
+                rect(273, 292+ yOffset, 125, 60);//draw new scissor box
+                fill(0, 0, 0);
+                textSize(30);
+                text("Scissors", 282, 330+ yOffset);//scissors text
+                noFill();
+                rect(150,358+ yOffset,100,35,100); // scissors box   
+                }
+            }
+    }
+    
+    if (mouseX>= 140 && mouseX<=264 && mouseY>=225 + yOffset && mouseY<=285  + yOffset){
+        overKnifeRect = true;
+        if (overKnifeRect === true){
+            fill(148,148,148);
+            rect(138,219+yOffset, 125,60);
+            fill(0,0,0);
+            textSize(30);
+            text("Knife", 164,260 + yOffset);
+                if (mouseIsPressed){
+                    fill(87, 87, 87);
+                rect(138,219+yOffset, 125,60);
+                fill(0,0,0);
+                textSize(30);
+                text("Knife", 164,260 + yOffset);
+                }
+        }
+    }    
+    
+    //rect(2, 409 + yOffset,125,60);//secret box
+    if (mouseX>= 2 && mouseX<=127 && mouseY>=409 + yOffset && mouseY<=496  + yOffset){// if mouse over the secret hidden box beneath the screen
+             fill(255, 255, 255); // make white
+             noStroke();
+             rect(0,400 + yOffset,400,400); // big rectangle covering half the screen for clear
+             stroke(0, 0, 0);
+             fill(0, 0, 0);
+            textSize(14);
+            noFill();
+            textSize(20);
+            rect(2, 409 + yOffset,125,60);//secret box
+            textSize(14);
+            noFill();
+            text("CVA Cascade Hunting Rifle", 26,416 + yOffset, 90,69); // not so secret text for secret text box
+            text("congratz you've found a secret weapon the gun is the strongest out of them all use it wisely as it had a horrible recoil that will hurt you and your points",131,416+ yOffset,244,136  ); //text 
+    }
+    
+
+    
+    
+    var f = createFont("Symbol"); //font
+textFont(f);//font
+    textSize(16);
+    text("Need help?", 159, 380+ yOffset); // help box words
+    
+     
+     
+    
+    buttonpressed = false;
+     fill(250, 232, 118);//Light yellow
+    rect(9, 10+ yOffset, 113, 65);//computer scores rect
+    rect(273, 8+ yOffset, 113, 65);//yourScore rect
+    line(10,43+ yOffset,121,43+ yOffset); // middle line for plyaer scoreboard
+    line (273,43+ yOffset,385,43+ yOffset); //middle line for cpu scoreboard
+    
+    textSize(25);
+    var f = createFont("monospace"); //font
+    textFont(f);//font
+    fill(255, 0, 0);
+    fill(0, 0, 0);
+    text("PLAYER", 21, 33 + yOffset); //player text at the top
+    fill(0, 0, 0); 
+     text("CPU", 309, 33+ yOffset); // cpu text at the top
+     noFill();
+     //fill(255, 255, 255);
+     
+      drawScore(); // draws the score
+      
+           
+     
+   var f = createFont("cursive"); //font
+textFont(f);//font
+    
+    
+ 
+                if (help === true){
+                    drawHelp();   
+                    drawRock2(56,110);
+                    drawScissors2(164,111);
+                    drawScissors2(33,207);
+                    drawPaper2( 163,208);
+                    drawPaper2(35,300);
+                    drawRock2(181,294);
+                    drawKnife2(277,83);
+                    drawPaper2(292,268);
+                } // if help is true, then draw help, if it is false go back to the game
+    
+    mouseClicked = function() {
+        if (mouseX>148 && mouseX<254 && mouseY>365+yOffset && mouseY<395+yOffset) {// if mouse is over the help button
+        // come back later
+             playSound(getSound("rpg/hit-thud"));
+            help = true; // this makes it so you can draw help sscren
+            
+        }
+            
+        if (mouseX>305 && mouseX<355 && mouseY>374 && mouseY<400 && help === true){ // if mouse is over back button on help sscreen, help is false, meaning go back to the game screen
+        playSound(getSound("retro/hit1"));
+            help = false; // go back to gaem
+            
+        }
+        
+    
+    };
+    
+         
+    if (mouseIsPressed   ) {
+    if ((mouseX>2) && (mouseX<128) && (mouseY>292+yOffset) && (mouseY<352+yOffset)) { // if mous eis over rock butto and clicked
+        drawRock(60,110 + yOffset); // draw rock
+        textSize(25);
+        playerChoice ="ROCK"; // you chose rock
+        buttonpressed=true;  // button has been pres
+    } 
+    
+     if ((mouseX>138) && (mouseX<263) && (mouseY>292+yOffset) && (mouseY<352+yOffset)) { // if mouse over paper and clicked
+        drawPaper(10,100 + yOffset); //draws paper
+        textSize(25);
+        playerChoice ="PAPER";
+        buttonpressed=true;
+    } 
+    
+    if ((mouseX>2) && (mouseX<128) && (mouseY>409+yOffset) && (mouseY<469+yOffset)) { // if mouse over hidden gun
+       drawGun(10,100 + yOffset); // draw gun
+       
+       textSize(25);
+       playerChoice = "CVA Cascade Hunting Rifle";
+       buttonpressed = true;
+    }
+    // rect(142,409 + yOffset,125,60) x y w h
+    
+    
+     if ((mouseX>273) && (mouseX<397) && (mouseY>292+yOffset) && (mouseY<352+ yOffset)) { //if mouse over scissor and click
+        drawScissors(10,100 + yOffset); //draw scissor
+        textSize(25);
+        playerChoice ="SCISSORS";
+        buttonpressed=true;
+    }
+    
+    if ((mouseX>140) && (mouseX<265) && (mouseY>220+yOffset) && (mouseY<280+ yOffset)) 
+    {    //if over knife
+        
+      drawKnife(10,100+yOffset); // draw knife
+      textSize(25);
+      playerChoice = "KNIFE";
+      buttonpressed = true; 
+    }
+    } 
+   
+    if (buttonpressed===false) { // button is not pressed player chose nothing
+        playerChoice ="NOTHING";
+    }
+   
+   if (playerChoice ==="NOTHING") { // if player choice is nothing then 
+      cpuChoiceNumb= round(random(0,3)); // take 3 random numbers and round it
+      canIncrease = true; // can increase
+   }
+        if (buttonpressed) { // if button is pressed
+        if (cpuChoiceNumb===0) { // and random numb chose 0
+            drawRock(298,100 + yOffset); // draw rock
+            cpuChoice="ROCK"; // cpu chose rock
+   }
+   if (cpuChoiceNumb===1) { // the random number is 1
+           drawPaper(270,100 + yOffset); //draw paper
+           cpuChoice="PAPER";// cpu chose paper
+    }
+      if (cpuChoiceNumb===2) { // if random numb is 2
+            drawScissors(270,100 + yOffset ); // draw scissors
+            cpuChoice="SCISSORS"; // cpu chose scissor
+   }
+   
+   if (cpuChoiceNumb === 3){ // if cpu chose knife
+       drawKnife(298,100 + yOffset); // draw knife
+       cpuChoice = "KNIFE";
+   }
+   //println(playerChoice);
+   textSize(25);
+   fill(0, 0, 0);
+   drawWinner(playerChoice,cpuChoice ); // draw the winner 
+   }
+   
+textSize(20);
+fill(250, 250, 250);
+    ellipse(mouseX,mouseY, 12, 12);  // circle that follows the mouse pointer
+    var label = mouseX+ "," + mouseY; // location of mouse x and mouse Y
+    text(label,mouseX,mouseY); // draws the location of mouse X and y onto the mouse
+    
+    
+  
+    // i added this code for debugging but when i remove it it ruins the program plz dont take marks off for this
+    fill(fontColor); // fill font color green
+    for(var font = 0; font < fonts.length; font++) { //useless code
+        var fontName = fonts[font];//useless code
+        drawText(fontName, 10, 30 + font * fontSize + yOffset); //useless code 
+    }
+    
+    // check if you're over the up/down arrows
+    overUpArrow = false; //origianl overuparrow
+    overDownArrow = false;//original overdownarrow
+    if(mouseX>=boxX && mouseX<=boxX+boxW && mouseY>=upBoxY && mouseY<=downBoxY+boxH) {//if mouse is over the up arrow
+        if(mouseY <= upBoxY + boxH) { // if mouse is on up arrow 
+            overUpArrow = true; // this allows you to click and scroll it
+        } else if(mouseY >= downBoxY) {  // else if mouse is over down arrow
+            overDownArrow = true; //this allows you to click and scroll down
+        }
+    }
+    
+    // draw up arrow
+    noStroke();
+    fill(upBoxColor); // fill green
+    if(overUpArrow) {// if over up arrow
+        fill(upBoxHoverColor); // fill dark green that shows when u hover over up arrow
+        if(mouseIsPressed) { 
+            fill(upBoxPressedColor); // fill the up arrow with dark dark green
+        }
+    }
+    rect(boxX, upBoxY, boxW, boxH); // for arrows scroll
+    fill(arrowColor);
+    rect(boxX + boxW*3/8, upBoxY+boxH/2, boxW/4, boxH*3/8); // arrow base for top arrow
+    triangle(boxX + boxW/8,   upBoxY + boxH/2, // arrow head  botom
+             boxX + boxW*7/8, upBoxY + boxH/2,  // arrow head  the top tip of arrow
+             boxX + boxW/2,   upBoxY + boxH/8);// arrowhead fill
+    
+    // draw down arrow
+    noStroke();
+    fill(downBoxColor); // fill red
+    if(overDownArrow) { 
+        fill(downBoxHoverColor); // color that shows when u hover over red down arrow
+        if(mouseIsPressed) {
+            fill(downBoxPressedColor); // color for dark red pressed on down arrow
+        }
+    }
+    rect(boxX, downBoxY, boxW, boxH); // for down arrow
+    fill(arrowColor); // fill arrow color red black
+    rect(boxX + boxW*3/8, downBoxY + boxH/2-15, boxW/4, boxH*3/8); // arrow base
+    triangle(boxX + boxW/8,   downBoxY + boxH/2, // arrow head bottom
+             boxX + boxW*7/8, downBoxY + boxH/2, // arrow head tip top
+             boxX + boxW/2,   downBoxY + boxH*7/8);//arrow head
+   
+    if(mouseIsPressed) {
+        if(overUpArrow) { // if mouse is over the up arrow and pressed
+            yOffset += scrollSpeed; // make y offset and scrol speed same so the arrow itslef doesnt move while whole pag moves up
+        } else if(overDownArrow) { // if over down arrow
+            yOffset -= scrollSpeed; // arrow speed move same as scroll speed and moves down
+        }
+    }  
+     }
+     
+     
+     
+     textSize(20);
+fill(140, 136, 140);
+    ellipse(mouseX,mouseY, 12, 12);  // cirlce that follows your mouse
+    var label = mouseX+ "," + mouseY; // x and y location of mouse
+    text(label,mouseX,mouseY); // draw x and y location on mouse and follow mouse/
+    
+    
+     
+     
+     
+
+    };
