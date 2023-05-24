@@ -1,5 +1,5 @@
 # SneakPeak
-Sneak Peak of my capabilities. This is a rock-paper-scissors game I made using JavaScript.
+Sneak Peak of my capabilities. This is a rock-paper-scissors game I made using JavaScript Processing JS library
 
 Khanacademy compatible only
 Run with this compiler:
